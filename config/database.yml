@@ -1,0 +1,21 @@
+default: &default
+  adapter: postgresql
+  username: feelings_flower
+  encoding: unicode
+  # For details on connection pooling, see rails configuration guide
+  # http://guides.rubyonrails.org/configuring.html#database-pooling
+  pool: 5
+
+development:
+  <<: *default
+  database: feelings_flower_development
+
+test:
+  <<: *default
+  database: feelings_flower_test
+
+production:
+  <<: *default
+  host: localhost
+  database: feelings_flower_production
+  password: <%= ENV['FEELINGS_FLOWER_DATABASE_PASSWORD'] %>
