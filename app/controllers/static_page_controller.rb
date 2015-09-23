@@ -21,11 +21,15 @@ class StaticPageController < ApplicationController
     end
 
     req = Net::HTTP::Post.new(uri.path)
-    req.set_form_data({'acckey' => 'jd6KqNqNNcdP3sFg', 'sent' => params[:sent]})
+    req.set_form_data({'acckey' => ENV["SYNANA_ACESS_KEY"], 'sent' => params[:sent]})
 
     res = http.request(req)
 
     synana = ActiveSupport::JSON.decode(res.body)
+
+    if (synana["results"].empty?)
+      redirect_to root_path and return
+    end
 
     case synana["results"][0]["spn"]
     when '1'
