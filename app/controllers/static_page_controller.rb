@@ -8,6 +8,11 @@ class StaticPageController < ApplicationController
   end
 
   def apipost
+
+    if (params[:sent].empty?)
+      redirect_to root_path and return
+    end
+
     uri = URI.parse("https://lr.capio.jp/webapis/iminos/synana_k/1_1/")
     http = Net::HTTP.new(uri.host, uri.port)
     if uri.scheme == 'https'

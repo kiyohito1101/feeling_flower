@@ -17,5 +17,5 @@ test:
 production:
   <<: *default
   host: localhost
-  database: feelings_flower_production
+  database: app-dev
   password: <%= ENV['FEELINGS_FLOWER_DATABASE_PASSWORD'] %>
