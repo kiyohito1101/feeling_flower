@@ -8,12 +8,12 @@
 
       <%= bootstrap_form_tag url: '/apipost' do |f| %>
         <% f.form_group class: "form-inline" do %>
-          <%= f.text_field_without_bootstrap :sent , class: "form-control", maxlength: 50 %>
+          <%= f.text_field_without_bootstrap :sent , class: "form-control", maxlength: 200 %>
           <%= f.submit "送信", data: { disable_with: "送信中..." } %>
         <% end %>
       <% end %>
-      <p>ポジティブな言葉をかけると花が増えます。</p>
-      <p>ネガティブな言葉をかけると花が枯れます。</p>
+      <p>URIを入力すると、そのサイトのBodyタグのtextを評価してグラフィックが変わります。</p>
+      <p>ポジティブな内容だとたくさんの花が咲きます。</p>
     </div>
   </div>
 </div>

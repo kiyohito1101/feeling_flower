@@ -202,15 +202,14 @@ window.onload = function() {
       }*/
     }
 
-    /*
+
     var label = new Label();
-    label.x = 930;
+    label.x = 915;
     label.y = 5;
     label.color = 'red';
     label.font = '30px "Arial"';
     label.text = feeling;
     scene.addChild(label);
-    */
 
     game.pushScene(scene);
 

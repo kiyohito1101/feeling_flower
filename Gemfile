@@ -27,6 +27,9 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 
 gem 'dotenv-rails'
 
+gem 'anemone'
+gem 'nokogiri'
+
 # bootstraps
 gem 'bootstrap_form'
 gem 'gon'
