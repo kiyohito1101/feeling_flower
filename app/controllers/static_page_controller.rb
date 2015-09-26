@@ -13,17 +13,16 @@ class StaticPageController < ApplicationController
       redirect_to root_path and return
     end
 
-    binding.pry
-
     target_uri = URI.parse(params[:sent])
 
     charset = nil
     html = open(target_uri.to_s) do |f|
       charset = f.charset # 文字種別を取得
-      f.read.encode("UTF-8", charset, invalid: :replace, undef: :replace) # encodeしてからhtmlを読み込んで変数htmlに渡す
+      f.read
+      # f.read.encode("UTF-8", charset, invalid: :replace, undef: :replace) # encodeしてからhtmlを読み込んで変数htmlに渡す
     end
     # htmlをパース(解析)してオブジェクトを生成
-    doc = Nokogiri::HTML(html, nil)
+    doc = Nokogiri::HTML(html, nil, charset)
 
     body = doc.xpath("/html/body")
 
