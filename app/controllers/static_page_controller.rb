@@ -44,8 +44,6 @@ class StaticPageController < ApplicationController
     @feeling.emotional_states = 0
     @feeling.save
 
-    binding.pry
-
     item.each do |text|
 
       req = Net::HTTP::Post.new(apiuri.path)
