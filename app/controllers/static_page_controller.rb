@@ -22,14 +22,11 @@ class StaticPageController < ApplicationController
       # f.read.encode("UTF-8", charset, invalid: :replace, undef: :replace) # encodeしてからhtmlを読み込んで変数htmlに渡す
     end
     # htmlをパース(解析)してオブジェクトを生成
-    doc = Nokogiri::HTML(html, nil, charset)
+    doc = Nokogiri::HTML(html, nil)
 
     body = doc.xpath("/html/body")
 
-    content = ""
-    body.each do |node|
-      content << node.text
-    end
+    content = body.to_s
 
     content.gsub!(/[ -~｡-ﾟ\r\n\t：★）（　＠＼／]/,"")
     item = content.split(/[。、？！・]/)

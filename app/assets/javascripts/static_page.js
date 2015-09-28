@@ -8,10 +8,10 @@ window.onload = function() {
     var scene = new Scene();
     var feeling = gon.emotional_states;
 
-    if (feeling < -50){
-      feeling = -50
-    } else if (feeling > 50){
-      feeling = 50
+    if (feeling < -150){
+
+    } else if (feeling > 150){
+      feeling = 150
     }
 
     if (feeling < 0){
@@ -204,7 +204,7 @@ window.onload = function() {
 
 
     var label = new Label();
-    label.x = 915;
+    label.x = 900;
     label.y = 5;
     label.color = 'red';
     label.font = '30px "Arial"';
