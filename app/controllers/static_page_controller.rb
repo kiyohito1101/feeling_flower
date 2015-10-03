@@ -1,10 +1,10 @@
 require 'net/https'
 
 class StaticPageController < ApplicationController
-  before_action :set_feeling
+  before_action :set_emotional_states
 
   def index
-    gon.emotional_states = @feeling.emotional_states
+    gon.emotional_states = session[:emotional_states]
   end
 
   def apipost
@@ -39,8 +39,7 @@ class StaticPageController < ApplicationController
       http.verify_mode = OpenSSL::SSL::VERIFY_PEER
     end
 
-    @feeling.emotional_states = 0
-    @feeling.save
+    emotional_states = 0
 
     item.each do |text|
 
@@ -66,61 +65,59 @@ class StaticPageController < ApplicationController
         when '刺激','味わい'
         when '夢中'
         when '元気'
-          @feeling.emotional_states += 1
+          emotional_states += 1
         when '有能','賢い','優遇'
-          @feeling.emotional_states += 1
+          emotional_states += 1
         when '喜ぶ','感謝','笑う'
-          @feeling.emotional_states += 1
+          emotional_states += 1
         when '愛好','尊敬','純粋'
-          @feeling.emotional_states += 1
+          emotional_states += 1
         when '幸福','快感','感動'
-          @feeling.emotional_states += 1
+          emotional_states += 1
         when '勇ましい','感じが良い'
-          @feeling.emotional_states += 1
+          emotional_states += 1
         when '自信','真面目','優しい'
-          @feeling.emotional_states += 1
+          emotional_states += 1
         when '配慮','丁寧','真心'
-          @feeling.emotional_states += 1
+          emotional_states += 1
         when '性悪','下品','侮辱','下手'
-          @feeling.emotional_states -= 1
+          emotional_states -= 1
         when '慌てる','偽装','困る','鈍い'
-          @feeling.emotional_states -= 1
+          emotional_states -= 1
         when '不幸','悲しむ','乱暴','間違う'
-          @feeling.emotional_states -= 1
+          emotional_states -= 1
         when '責める','媚びる','愚か','排泄'
-          @feeling.emotional_states -= 1
+          emotional_states -= 1
         when '嫌悪','恐怖','疑惑'
-          @feeling.emotional_states -= 1
+          emotional_states -= 1
         when '飢渇','摂食','後悔'
-          @feeling.emotional_states -= 1
+          emotional_states -= 1
         when '執着','情け','傲慢'
-          @feeling.emotional_states -= 1
+          emotional_states -= 1
         when 'つまらない','わがまま'
-          @feeling.emotional_states -= 1
+          emotional_states -= 1
         when '怒る、不満','態度（悪）','身上（悪）'
-          @feeling.emotional_states -= 3
+          emotional_states -= 3
         end
       end
 
       case synana["results"][0]["spn"]
       when '1'
-        @feeling.emotional_states += 1
+        emotional_states += 1
       when '2'
-        @feeling.emotional_states += -1
+        emotional_states += -1
       end
 
-      @feeling.save
     end
 
+    session[:emotional_states] = emotional_states
     redirect_to root_path
   end
 
   private
 
-  def set_feeling
-    unless @feeling = Feeling.first
-      @feeling = Feeling.new
-    end
+  def set_emotional_states
+    session[:emotional_states] ||= 0
   end
 
 end
