@@ -31,6 +31,9 @@ class StaticPageController < ApplicationController
     content.gsub!(/[ -~｡-ﾟ\r\n\t：★）（　＠＼／]/,"")
     item = content.split(/[。、？！・]/)
     item.reject!(&:blank?)
+    item = item.take(50)
+
+
 
     apiuri = URI.parse("https://lr.capio.jp/webapis/iminos/synana_k/1_1/")
     http = Net::HTTP.new(apiuri.host, apiuri.port)
